@@ -1,0 +1,29 @@
+			  <table class="table">
+					<% book.book_comments.each do |comment| %>
+				 			<tr>
+					 			<th><%= attachment_image_tag comment.user, :profile_image, :fill, 30, 30, format: "jpeg", fallback: "no-image-mini.jpg", size: "30x30" %></th>
+							 	<td><%= comment.comment %></td>
+							  <% if current_user == comment.user %>
+								  <td><%= link_to "Destroy", book_book_comment_path(comment.book_id, comment), method: :delete, class: "btn btn-sm btn-danger", remote: true %></td>
+								<% else %>
+									<td></td>
+								<% end %>
+		  				</tr>
+					<% end %>
+  			</table>
+
+		<%= form_with model: [book, comment_new], url: book_book_comments_path(book.id), remote: true, method: :post  do |f| %>
+			<% if comment_new.errors.any? %>
+				<div class="error-explanation text-danger">
+					<h3><%= pluralize(comment_new.errors.count, "error") %> prohibited this comment from being saved</h3>
+					<ul>
+  					<% comment_new.errors.full_messages.each do |message| %>
+							<li><%= message %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
+
+			<%= f.text_area :comment, class: "form-control comment-text" %>
+			<%= f.submit %>
+		<% end %>
