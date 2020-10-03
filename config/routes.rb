@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
+  }
   resources :users, only: [:show,:index,:edit,:update] do
     get :followings, :followers
   end
@@ -13,4 +15,8 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   root 'homes#top'
   get 'home/about' => 'homes#about', as: 'about'
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
