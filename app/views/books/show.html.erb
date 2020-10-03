@@ -27,7 +27,7 @@
 				<td class="favorite-btn-<%= @book.id %>">
 						<%= render partial: "favorites/favorite", locals: { book: @book } %>
 				</td>
-				<td><%= pluralize(@book.book_comments.count, "comment") %></td>
+				<td class="comment-count"><%= pluralize(@book.book_comments.count, "comment") %></td>
 				<% if current_user == @book.user %>
 					<td><%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
 					<td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %></td>

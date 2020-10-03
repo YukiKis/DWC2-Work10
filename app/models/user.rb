@@ -12,11 +12,21 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-
   attachment :profile_image, destroy: false
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: { maximum: 50}
+
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefectire_name).code
+  end
 
   # When you want to see all books not only posted by yourself but also by your followings
   # def feed
@@ -34,5 +44,9 @@ class User < ApplicationRecord
 
   def following?(other_user)
     self.followings.include?(other_user)
+  end
+
+  def address
+    "〒#{self.postcode.to_s.chars[0..2].join}-#{self.postcode.to_s.chars[3..6].split.join} #{self.prefecture_code.try(:name)} #{self.address_city} #{self.address_street} #{self.address_building}"
   end
 end
