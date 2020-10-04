@@ -1,6 +1,6 @@
-class CreateMessages < ActiveRecord::Migration[5.2]
+class CreateChats < ActiveRecord::Migration[5.2]
   def change
-    create_table :messages do |t|
+    create_table :chats do |t|
       t.references :user, foreign_key: true
       t.references :room, foreign_key: true
       t.text :content

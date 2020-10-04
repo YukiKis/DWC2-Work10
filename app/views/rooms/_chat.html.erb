@@ -4,7 +4,7 @@
       <p class="user-show-room"><%= link_to "Chatting", room_path(roomId), class: "btn btn-block btn-info" %></p>
     <% else %>
     <%= form_with model: room, local: true do |f| %>
-      <%= fields_for entry do |e| %>
+      <%= fields_for user_room do |e| %>
         <%= e.hidden_field :user_id, value: user.id %>
       <% end %>
       <%= f.submit "Start Chatting", class:"btn btn-success btn-block"%>

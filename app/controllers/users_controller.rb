@@ -12,11 +12,11 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
 
-    @currentUserEntry = Entry.where(user_id: current_user.id)
-    @userEntry = Entry.where(user_id: @user.id)
+    @currentuser_user_room = UserRoom.where(user_id: current_user.id)
+    @user_user_room = UserRoom.where(user_id: @user.id)
     if !(@user.id == current_user.id)
-      @currentUserEntry.each do |cu|
-        @userEntry.each do |u|
+      @currentuser_user_room.each do |cu|
+        @user_user_room.each do |u|
           if cu.room_id == u.room_id
             @isRoom = true
             @roomId = cu.room_id
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       if @isRoom
       else
         @room = Room.new
-        @entry = Entry.new
+        @user_room = UserRoom.new
       end
     end
   end

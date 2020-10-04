@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   root 'homes#top'
   get 'home/about' => 'homes#about', as: 'about'
 
-  resources :messages, only: :create
+  resources :chats, only: :create
   resources :rooms, only: [:create, :show]
 
   if Rails.env.development?

@@ -1,19 +1,11 @@
 <%= link_to "Back", users_path %>
-<div class="chat">
-  <% if @messages.any? %>
-    <% @messages.each do |message| %>
-      <div class="chatbox">
-        <%= attachment_image_tag message.user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no-image-mini.jpg", size: "40x40" %>
-        <%= message.content %><br>
-        <small><%= message.user.name %> | <%= message.created_at.strftime("%Y/%m/%d") %></small>
-      </div>
-    <% end %>
-  <% end %>
+<div class="chats-list">
+  <%= render "chats/chat", chats: @chats%>
 </div>
 
 <div class="chat-post">
-  <%= form_with model: @message do |f| %>
-    <%= f.text_field :content, placeholder: "Message", class: "form-inline" %>
+  <%= form_with model: @chat, remote: true do |f| %>
+    <%= f.text_field :content, placeholder: "Message", class: "form-inline chat-content" %>
     <%= f.hidden_field :room_id, value: @room.id %>
     <%= f.submit "Post", class: "btn btn-info" %>
   <% end %>

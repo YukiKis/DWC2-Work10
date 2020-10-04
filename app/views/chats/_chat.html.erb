@@ -1,0 +1,9 @@
+  <% if chats.any? %>
+    <% chats.each do |chat| %>
+      <div class="chatbox">
+        <%= attachment_image_tag chat.user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no-image-mini.jpg", size: "40x40" %>
+        <%= chat.content %><br>
+        <small><%= chat.user.name %> | <%= chat.created_at.strftime("%Y/%m/%d") %></small>
+      </div>
+    <% end %>
+  <% end %>
