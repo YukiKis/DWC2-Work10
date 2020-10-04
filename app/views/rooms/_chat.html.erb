@@ -1,0 +1,14 @@
+<% if !(user.id == current_user.id)%>
+  <% if (current_user.following?(user)) && (user.following?(current_user))%>
+    <% if isRoom %>
+      <p class="user-show-room"><%= link_to "Chatting", room_path(roomId), class: "btn btn-block btn-info" %></p>
+    <% else %>
+    <%= form_with model: room, local: true do |f| %>
+      <%= fields_for entry do |e| %>
+        <%= e.hidden_field :user_id, value: user.id %>
+      <% end %>
+      <%= f.submit "Start Chatting", class:"btn btn-success btn-block"%>
+    <% end %>
+    <% end %>
+  <% end %>
+<% end %>

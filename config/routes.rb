@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   root 'homes#top'
   get 'home/about' => 'homes#about', as: 'about'
 
+  resources :messages, only: :create
+  resources :rooms, only: [:create, :show]
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
