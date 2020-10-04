@@ -70,3 +70,4 @@ gem 'jquery-rails'
 gem "bootstrap-sass"
 gem "jp_prefecture"
 gem "config"
+gem "whenever", require: false
